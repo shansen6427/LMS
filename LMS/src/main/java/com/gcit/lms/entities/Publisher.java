@@ -1,16 +1,14 @@
 package com.gcit.lms.entities;
 
-// Generated Jan 30, 2014 2:32:50 PM by Hibernate Tools 3.4.0.CR1
-
-import static javax.persistence.GenerationType.IDENTITY;
+// Generated Feb 5, 2014 3:10:53 PM by Hibernate Tools 4.0.0
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,15 +20,11 @@ import javax.persistence.Table;
 @Table(name = "tbl_publisher", catalog = "library")
 public class Publisher implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6124654820865174477L;
 	private Integer publisherId;
 	private String publisherName;
 	private String publisherAddress;
 	private String publisherPhone;
-	private Set<Book> tblBooks = new HashSet<Book>(0);
+	private Set<Book> books = new HashSet<Book>(0);
 
 	public Publisher() {
 	}
@@ -40,11 +34,11 @@ public class Publisher implements java.io.Serializable {
 	}
 
 	public Publisher(String publisherName, String publisherAddress,
-			String publisherPhone, Set<Book> tblBooks) {
+			String publisherPhone, Set<Book> books) {
 		this.publisherName = publisherName;
 		this.publisherAddress = publisherAddress;
 		this.publisherPhone = publisherPhone;
-		this.tblBooks = tblBooks;
+		this.books = books;
 	}
 
 	@Id
@@ -85,13 +79,13 @@ public class Publisher implements java.io.Serializable {
 		this.publisherPhone = publisherPhone;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "publisher")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tblPublisher")
 	public Set<Book> getTblBooks() {
-		return this.tblBooks;
+		return this.books;
 	}
 
-	public void setTblBooks(Set<Book> tblBooks) {
-		this.tblBooks = tblBooks;
+	public void setTblBooks(Set<Book> books) {
+		this.books = books;
 	}
 
 }

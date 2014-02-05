@@ -1,16 +1,14 @@
 package com.gcit.lms.entities;
 
-// Generated Jan 30, 2014 2:32:50 PM by Hibernate Tools 3.4.0.CR1
-
-import static javax.persistence.GenerationType.IDENTITY;
+// Generated Feb 5, 2014 3:10:53 PM by Hibernate Tools 4.0.0
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,25 +20,40 @@ import javax.persistence.Table;
 @Table(name = "tbl_library_branch", catalog = "library")
 public class LibraryBranch implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7105946468378683614L;
 	private Integer branchId;
 	private String branchName;
 	private String branchAddress;
-	private Set<BookLoans> bookLoans = new HashSet<BookLoans>(0);
-	private Set<BookCopies> bookCopies = new HashSet<BookCopies>(0);
+	private Set<Transfers> tblTransfersesForFromBranchId = new HashSet<Transfers>(
+			0);
+	private Set<Librarian> librarians = new HashSet<Librarian>(0);
+	private Set<Reservation> reservations = new HashSet<Reservation>(0);
+	private Set<Transfers> tblTransfersesForToBranchId = new HashSet<Transfers>(
+			0);
+	private Set<ItemCopies> tblItemCopieses = new HashSet<ItemCopies>(0);
+	private Set<ItemLoans> tblItemLoanses = new HashSet<ItemLoans>(0);
 
 	public LibraryBranch() {
 	}
 
-	public LibraryBranch(String branchName, String branchAddress,
-			Set<BookLoans> tblBookLoans, Set<BookCopies> tblBookCopies) {
+	public LibraryBranch(String branchName, String branchAddress) {
 		this.branchName = branchName;
 		this.branchAddress = branchAddress;
-		this.bookLoans = tblBookLoans;
-		this.bookCopies = tblBookCopies;
+	}
+
+	public LibraryBranch(String branchName, String branchAddress,
+			Set<Transfers> tblTransfersesForFromBranchId,
+			Set<Librarian> librarians,
+			Set<Reservation> reservations,
+			Set<Transfers> tblTransfersesForToBranchId,
+			Set<ItemCopies> tblItemCopieses, Set<ItemLoans> tblItemLoanses) {
+		this.branchName = branchName;
+		this.branchAddress = branchAddress;
+		this.tblTransfersesForFromBranchId = tblTransfersesForFromBranchId;
+		this.librarians = librarians;
+		this.reservations = reservations;
+		this.tblTransfersesForToBranchId = tblTransfersesForToBranchId;
+		this.tblItemCopieses = tblItemCopieses;
+		this.tblItemLoanses = tblItemLoanses;
 	}
 
 	@Id
@@ -54,7 +67,7 @@ public class LibraryBranch implements java.io.Serializable {
 		this.branchId = branchId;
 	}
 
-	@Column(name = "branchName", length = 45)
+	@Column(name = "branchName", nullable = false, length = 45)
 	public String getBranchName() {
 		return this.branchName;
 	}
@@ -63,7 +76,7 @@ public class LibraryBranch implements java.io.Serializable {
 		this.branchName = branchName;
 	}
 
-	@Column(name = "branchAddress", length = 45)
+	@Column(name = "branchAddress", nullable = false, length = 45)
 	public String getBranchAddress() {
 		return this.branchAddress;
 	}
@@ -72,22 +85,60 @@ public class LibraryBranch implements java.io.Serializable {
 		this.branchAddress = branchAddress;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "libraryBranch")
-	public Set<BookLoans> getBookLoans() {
-		return this.bookLoans;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tblLibraryBranchByFromBranchId")
+	public Set<Transfers> getTblTransfersesForFromBranchId() {
+		return this.tblTransfersesForFromBranchId;
 	}
 
-	public void setBookLoans(Set<BookLoans> bookLoans) {
-		this.bookLoans = bookLoans;
+	public void setTblTransfersesForFromBranchId(
+			Set<Transfers> tblTransfersesForFromBranchId) {
+		this.tblTransfersesForFromBranchId = tblTransfersesForFromBranchId;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "libraryBranch")
-	public Set<BookCopies> getBookCopies() {
-		return this.bookCopies;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tblLibraryBranch")
+	public Set<Librarian> getTblLibrarians() {
+		return this.librarians;
 	}
 
-	public void setBookCopies(Set<BookCopies> bookCopies) {
-		this.bookCopies = bookCopies;
+	public void setTblLibrarians(Set<Librarian> librarians) {
+		this.librarians = librarians;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tblLibraryBranch")
+	public Set<Reservation> getTblReservations() {
+		return this.reservations;
+	}
+
+	public void setTblReservations(Set<Reservation> reservations) {
+		this.reservations = reservations;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tblLibraryBranchByToBranchId")
+	public Set<Transfers> getTblTransfersesForToBranchId() {
+		return this.tblTransfersesForToBranchId;
+	}
+
+	public void setTblTransfersesForToBranchId(
+			Set<Transfers> tblTransfersesForToBranchId) {
+		this.tblTransfersesForToBranchId = tblTransfersesForToBranchId;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tblLibraryBranch")
+	public Set<ItemCopies> getTblItemCopieses() {
+		return this.tblItemCopieses;
+	}
+
+	public void setTblItemCopieses(Set<ItemCopies> tblItemCopieses) {
+		this.tblItemCopieses = tblItemCopieses;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tblLibraryBranch")
+	public Set<ItemLoans> getTblItemLoanses() {
+		return this.tblItemLoanses;
+	}
+
+	public void setTblItemLoanses(Set<ItemLoans> tblItemLoanses) {
+		this.tblItemLoanses = tblItemLoanses;
 	}
 
 }
